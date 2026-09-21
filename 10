@@ -1,0 +1,38 @@
+type Cor = "vermelho" | "amarelo" | "verde";
+ 
+function gerarMensagem(cor: Cor, pedestrePresente: boolean, sensorConsistente: boolean): string {
+  if (!sensorConsistente) {
+    return "Sensor inconsistente: ativar modo de segurança (piscante em todas as direções)";
+  }
+ 
+  switch (cor) {
+    case "vermelho":
+      return "Veículos param" + (pedestrePresente ? "; pedestres podem atravessar" : "");
+    case "amarelo":
+      return "Sistema prepara a parada" + (pedestrePresente ? "; pedestres devem aguardar" : "");
+    case "verde":
+      return "Veículos seguem" + (pedestrePresente ? "; pedestres aguardam" : "");
+  }
+}
+ 
+interface Cenario {
+  cor: Cor;
+  pedestre: boolean;
+  sensorOk: boolean;
+}
+ 
+const cenarios: Cenario[] = [
+  { cor: "vermelho", pedestre: true, sensorOk: true },
+  { cor: "amarelo", pedestre: false, sensorOk: true },
+  { cor: "verde", pedestre: true, sensorOk: true },
+  { cor: "verde", pedestre: false, sensorOk: false },
+ 
+for (const cenario of cenarios) {
+  console.log(
+    `Cor=${cenario.cor}, pedestre=${cenario.pedestre}, sensorOk=${cenario.sensorOk} -> ${gerarMensagem(
+      cenario.cor,
+      cenario.pedestre,
+      cenario.sensorOk
+    )}`
+  );
+}
