@@ -1,0 +1,28 @@
+const SENHA_CORRETA = "simulada123";
+ 
+function simularLogin(tentativasSimuladas: string[]): void {
+  let tentativa = 0;
+  let acessoLiberado = false;
+ 
+  while (tentativa < 3 && !acessoLiberado) {
+    const senhaDigitada = tentativasSimuladas[tentativa];
+    tentativa++;
+ 
+    if (senhaDigitada === SENHA_CORRETA) {
+      acessoLiberado = true;
+      console.log(`Tentativa ${tentativa}: senha correta. Acesso liberado.`);
+    } else {
+      console.log(`Tentativa ${tentativa}: senha incorreta.`);
+    }
+  }
+ 
+  if (!acessoLiberado) {
+    console.log("Limite de tentativas atingido. Terminal bloqueado.");
+  }
+}
+ 
+console.log("--- Cenário de sucesso ---");
+simularLogin(["errada1", "simulada123", "não usada"]);
+ 
+console.log("--- Cenário de bloqueio ---");
+simularLogin(["errada1", "errada2", "errada3"]);
