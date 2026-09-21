@@ -1,0 +1,36 @@
+interface Estudante {
+  matricula: string;
+  nome: string;
+}
+ 
+const estudantes: Estudante[] = [
+  { matricula: "2021001", nome: "Ana" },
+  { matricula: "2021002", nome: "Bruno" },
+  { matricula: "2021003", nome: "Carla" },
+  { matricula: "2021004", nome: "Diego" },
+  { matricula: "2021005", nome: "Elisa" },
+];
+ 
+function buscarMatricula(matriculaProcurada: string): void {
+  let encontrado = false;
+  let iteracoes = 0;
+ 
+  for (const estudante of estudantes) {
+    iteracoes++;
+    if (estudante.matricula === matriculaProcurada) {
+      encontrado = true;
+      console.log(`Encontrado: ${estudante.nome} (matrícula ${estudante.matricula}) em ${iteracoes} iteração(ões)`);
+      break;
+    }
+  }
+ 
+  if (!encontrado) {
+    console.log(`Matrícula ${matriculaProcurada} não encontrada após ${iteracoes} iteração(ões)`);
+  }
+}
+ 
+console.log("--- Busca bem-sucedida (início da lista) ---");
+buscarMatricula("2021002");
+ 
+console.log("--- Busca malsucedida (percorre a lista inteira) ---");
+buscarMatricula("9999999");
