@@ -1,0 +1,32 @@
+interface Familia {
+  nome: string;
+  rendaPorPessoa: number;
+  cadastroAtivo: boolean;
+  possuiIdoso: boolean;
+}
+ 
+interface ResultadoElegibilidade {
+  elegivel: boolean;
+  prioridade: boolean;
+}
+ 
+function avaliarFamilia(familia: Familia): ResultadoElegibilidade {
+  const elegivel = familia.rendaPorPessoa <= 706 && familia.cadastroAtivo;
+  const prioridade = elegivel && familia.possuiIdoso;
+  return { elegivel, prioridade };
+}
+ 
+const familias: Familia[] = [
+  { nome: "Família A", rendaPorPessoa: 500, cadastroAtivo: true, possuiIdoso: true }
+  { nome: "Família B", rendaPorPessoa: 706, cadastroAtivo: true, possuiIdoso: false }
+  { nome: "Família C", rendaPorPessoa: 800, cadastroAtivo: true, possuiIdoso: true }, 
+  { nome: "Família D", rendaPorPessoa: 400, cadastroAtivo: false, possuiIdoso: false }
+];
+ 
+for (const familia of familias) {
+  const resultado = avaliarFamilia(familia);
+  console.log(
+    `${familia.nome}: elegível=${resultado.elegivel}, prioridade=${resultado.prioridade}`
+  );
+}
+ 
