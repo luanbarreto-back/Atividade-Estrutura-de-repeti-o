@@ -1,0 +1,20 @@
+type Perfil = "aluno" | "professor" | "coordenador";
+ 
+function acessar(perfil: Perfil | string): string {
+  switch (perfil) {
+    case "aluno":
+      return "Acesso à área do aluno: materiais e notas";
+    case "professor":
+      return "Acesso à área do professor: lançamento de notas e frequência";
+    case "coordenador":
+      return "Acesso à área do coordenador: gestão acadêmica completa";
+    default:
+      return "Perfil não reconhecido. Acesso negado.";
+  }
+}
+ 
+const perfisParaTeste: string[] = ["aluno", "professor", "coordenador", "financeiro"];
+ 
+for (const perfil of perfisParaTeste) {
+  console.log(`${perfil} -> ${acessar(perfil)}`);
+}
