@@ -1,0 +1,44 @@
+type ResultadoMedia =
+  | { valido: false }
+  | { valido: true; media: number; situacao: "aprovado" | "recuperação" | "reprovado" };
+ 
+function avaliarAluno(n1: number, n2: number, n3: number): ResultadoMedia {
+  const notas = [n1, n2, n3];
+  const todasValidas = notas.every((n) => n >= 0 && n <= 10);
+ 
+  if (!todasValidas) {
+    return { valido: false };
+  }
+ 
+  const media = (n1 + n2 + n3) / 3;
+ 
+  let situacao: "aprovado" | "recuperação" | "reprovado";
+  if (media >= 7) {
+    situacao = "aprovado";
+  } else if (media >= 5) {
+    situacao = "recuperação";
+  } else {
+    situacao = "reprovado";
+  }
+ 
+  return { valido: true, media: Number(media.toFixed(2)), situacao };
+}
+ 
+const alunos: [number, number, number][] = [
+  [8, 7, 9]
+  [7, 7, 7]
+  [5, 5, 5]
+  [6.9, 6.9, 7]
+  [4, 4, 4]
+  [10, -1, 8]
+  [11, 9, 8]
+];
+ 
+for (const [n1, n2, n3] of alunos) {
+  const resultado = avaliarAluno(n1, n2, n3);
+  if (resultado.valido) {
+    console.log(`Notas (${n1}, ${n2}, ${n3}) -> média ${resultado.media}, ${resultado.situacao}`);
+  } else {
+    console.log(`Notas (${n1}, ${n2}, ${n3}) -> inválido`);
+  }
+}
