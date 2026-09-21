@@ -1,0 +1,20 @@
+let totalPares = 0;
+let totalImpares = 0;
+let totalMultiplosDe5 = 0;
+ 
+for (let numero = 1; numero <= 50; numero++) {
+  if (numero % 2 === 0) {
+    totalPares++;
+  } else {
+    totalImpares++;
+  }
+ 
+  if (numero % 5 === 0) {
+    totalMultiplosDe5++;
+  }
+}
+ 
+console.log(`Pares: ${totalPares}`);
+console.log(`Ímpares: ${totalImpares}`);
+console.log(`Múltiplos de 5: ${totalMultiplosDe5}`);
+ 
