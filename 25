@@ -1,0 +1,43 @@
+interface Residencia {
+  id: number;
+  consumoAntes: number;
+  consumoDepois: number;
+}
+ 
+const residencias: Residencia[] = [
+  { id: 1, consumoAntes: 200, consumoDepois: 170 },
+   { id: 2, consumoAntes: 150, consumoDepois: 140 }, 
+  { id: 3, consumoAntes: 0, consumoDepois: 50 },   
+  { id: 4, consumoAntes: 300, consumoDepois: 270 },  
+  { id: 5, consumoAntes: 180, consumoDepois: 190 },
+  { id: 6, consumoAntes: 220, consumoDepois: 190 },
+  { id: 7, consumoAntes: 90, consumoDepois: 80 },
+  { id: 8, consumoAntes: 250, consumoDepois: 200 },
+  { id: 9, consumoAntes: 0, consumoDepois: 0 },    
+  { id: 10, consumoAntes: 175, consumoDepois: 150 },
+  { id: 11, consumoAntes: 260, consumoDepois: 245 },
+  { id: 12, consumoAntes: 140, consumoDepois: 120 },
+];
+ 
+let metasAtingidas = 0;
+ 
+for (const residencia of residencias) {
+  if (residencia.consumoAntes === 0) {
+    console.log(`Residência ${residencia.id}: não é possível calcular percentual (consumo anterior zero)`);
+    continue;
+  }
+ 
+  const reducao = (residencia.consumoAntes - residencia.consumoDepois) / residencia.consumoAntes;
+  const percentual = reducao * 100;
+  const atingiuMeta = reducao >= 0.10;
+ 
+  if (atingiuMeta) {
+    metasAtingidas++;
+  }
+ 
+  console.log(
+    `Residência ${residencia.id}: redução de ${percentual.toFixed(1)}% -> ${atingiuMeta ? "atingiu a meta" : "não atingiu"}`
+  );
+}
+ 
+console.log(`Total de residências que atingiram a meta: ${metasAtingidas}`);
