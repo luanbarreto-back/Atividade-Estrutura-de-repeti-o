@@ -1,0 +1,39 @@
+type ResultadoTriangulo =
+  | { valido: false }
+  | { valido: true; tipo: "equilátero" | "isósceles" | "escaleno" };
+ 
+function avaliarTriangulo(a: number, b: number, c: number): ResultadoTriangulo {
+  if (a <= 0 || b <= 0 || c <= 0) {
+    return { valido: false };
+  }
+ 
+  const respeitaDesigualdade = a + b > c && a + c > b && b + c > a;
+  if (!respeitaDesigualdade) {
+    return { valido: false };
+  }
+ 
+  if (a === b && b === c) {
+    return { valido: true, tipo: "equilátero" };
+  } else if (a === b || b === c || a === c) {
+    return { valido: true, tipo: "isósceles" };
+  } else {
+    return { valido: true, tipo: "escaleno" };
+  }
+}
+ 
+const triangulos: [number, number, number][] = [
+  [5, 5, 5]
+  [5, 5, 8]
+  [3, 4, 5]
+  [1, 1, 5]
+  [-3, 4, 5]
+];
+ 
+for (const [a, b, c] of triangulos) {
+  const resultado = avaliarTriangulo(a, b, c);
+  if (resultado.valido) {
+    console.log(`(${a}, ${b}, ${c}) -> válido, ${resultado.tipo}`);
+  } else {
+    console.log(`(${a}, ${b}, ${c}) -> inválido`);
+  }
+}
