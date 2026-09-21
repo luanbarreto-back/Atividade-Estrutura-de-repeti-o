@@ -1,0 +1,33 @@
+const respostas = [8, 10, -1, 7, 15, 9, 8, 5, 100, 6];
+ 
+const frequencias: number[] = new Array(11).fill(0); 
+let totalValidas = 0;
+let totalInvalidas = 0;
+let somaValidas = 0;
+ 
+for (const resposta of respostas) {
+  if (resposta >= 0 && resposta <= 10) {
+    frequencias[resposta]++;
+    somaValidas += resposta;
+    totalValidas++;
+  } else {
+    totalInvalidas++;
+  }
+}
+ 
+console.log("--- Distribuição por nota ---");
+for (let nota = 0; nota <= 10; nota++) {
+  if (frequencias[nota] > 0) {
+    console.log(`Nota ${nota}: ${frequencias[nota]} resposta(s)`);
+  }
+}
+ 
+console.log(`Respostas inválidas ignoradas: ${totalInvalidas}`);
+ 
+if (totalValidas > 0) {
+  const media = somaValidas / totalValidas;
+  console.log(`Média válida: ${media.toFixed(2)}`);
+} else {
+  console.log("Não há respostas válidas para calcular a média");
+}
+ 
