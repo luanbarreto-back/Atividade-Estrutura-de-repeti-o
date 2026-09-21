@@ -1,0 +1,17 @@
+const filas = ["A", "B", "C", "D", "E"];
+const assentosPorFila = 6;
+ 
+const reservados = ["A1", "C3", "E6", "B4"];
+ 
+const mapaAssentos: string[] = [];
+ 
+for (const fila of filas) {
+  for (let numero = 1; numero <= assentosPorFila; numero++) {
+    const codigo = `${fila}${numero}`;
+    const estado = reservados.includes(codigo) ? "reservado" : "livre";
+    mapaAssentos.push(`${codigo}:${estado}`);
+  }
+}
+ 
+console.log(mapaAssentos.join(" | "));
+ 
