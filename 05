@@ -1,0 +1,48 @@
+interface ResultadoCompra {
+  percentualDesconto: number;
+  valorDesconto: number;
+  valorFinal: number;
+}
+ 
+function calcularDesconto(valorCompra: number, institucional: boolean): ResultadoCompra {
+  let percentual = 0;
+ 
+  if (valorCompra > 600) {
+    percentual = 15;
+  } else if (valorCompra > 300) {
+    percentual = 10;
+  } else if (valorCompra > 100) {
+    percentual = 5;
+  }
+ 
+  if (institucional) {
+    percentual += 3;
+  }
+ 
+  percentual = Math.min(percentual, 18);
+ 
+  const valorDesconto = valorCompra * (percentual / 100);
+  const valorFinal = valorCompra - valorDesconto;
+ 
+  return {
+    percentualDesconto: percentual,
+    valorDesconto: Number(valorDesconto.toFixed(2)),
+    valorFinal: Number(valorFinal.toFixed(2)),
+  };
+}
+ 
+const casos: { valor: number; institucional: boolean }[] = [
+  { valor: 100, institucional: false }
+  { valor: 150, institucional: false }
+  { valor: 300, institucional: true }
+  { valor: 350, institucional: true }
+  { valor: 700, institucional: true }
+];
+ 
+for (const caso of casos) {
+  const resultado = calcularDesconto(caso.valor, caso.institucional);
+  console.log(
+    `Compra R$ ${caso.valor} (institucional=${caso.institucional}) -> ${resultado.percentualDesconto}% | desconto R$ ${resultado.valorDesconto} | final R$ ${resultado.valorFinal}`
+  );
+}
+ 
