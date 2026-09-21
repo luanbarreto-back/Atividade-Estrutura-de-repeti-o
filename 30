@@ -1,0 +1,96 @@
+type Turno = "matutino" | "vespertino" | "noturno";
+type Classificacao = "baixo" | "moderado" | "alto";
+ 
+interface RegistroSala {
+  sala: string;
+  turno: Turno;
+  leiturasDiarias: number[];
+}
+ 
+interface RelatorioSala {
+  sala: string;
+  turno: Turno;
+  total: number;
+  media: number;
+  classificacao: Classificacao;
+  leiturasInvalidas: number;
+}
+ 
+function validarLeitura(valor: number): boolean {
+  return Number.isFinite(valor) && valor >= 0 && valor <= 1000;
+}
+ 
+function classificarConsumo(media: number): Classificacao {
+  if (media <= 50) {
+    return "baixo";
+  } else if (media <= 150) {
+    return "moderado";
+  } else {
+    return "alto";
+  }
+}
+ 
+function gerarRelatorio(registro: RegistroSala): RelatorioSala {
+  let total = 0;
+  let quantidadeValida = 0;
+  let leiturasInvalidas = 0;
+ 
+  for (const leitura of registro.leiturasDiarias) {
+    if (validarLeitura(leitura)) {
+      total += leitura;
+      quantidadeValida++;
+    } else {
+      leiturasInvalidas++;
+    }
+  }
+ 
+  const media = quantidadeValida > 0 ? total / quantidadeValida : 0;
+ 
+  return {
+    sala: registro.sala,
+    turno: registro.turno,
+    total: arredondar(total),
+    media: arredondar(media),
+    classificacao: classificarConsumo(media),
+    leiturasInvalidas,
+  };
+}
+ 
+function arredondar(valor: number): number {
+  return Math.round(valor * 100) / 100;
+}
+ 
+function encontrarMaiorConsumo(relatorios: RelatorioSala[]): RelatorioSala | null {
+  if (relatorios.length === 0) {
+    return null;
+  }
+ 
+  let maior = relatorios[0];
+  for (const relatorio of relatorios) {
+    if (relatorio.total > maior.total) {
+      maior = relatorio;
+    }
+  }
+  return maior;
+}
+ 
+const registros: RegistroSala[] = [
+  { sala: "Sala 101", turno: "matutino", leiturasDiarias: [30, 45, 40, -5, 38] },
+  { sala: "Sala 102", turno: "vespertino", leiturasDiarias: [120, 130, 1500, 140, 125] },
+  { sala: "Sala 103", turno: "noturno", leiturasDiarias: [10, 12, 8, 15, 9] },
+];
+ 
+const relatorios: RelatorioSala[] = [];
+for (const registro of registros) {
+  const relatorio = gerarRelatorio(registro);
+  relatorios.push(relatorio);
+  console.log(
+    `${relatorio.sala} (${relatorio.turno}): total=${relatorio.total}, média=${relatorio.media}, classificação=${relatorio.classificacao}, leituras inválidas=${relatorio.leiturasInvalidas}`
+  );
+}
+ 
+const salaDeMaiorConsumo = encontrarMaiorConsumo(relatorios);
+if (salaDeMaiorConsumo) {
+  console.log(`Sala de maior consumo total: ${salaDeMaiorConsumo.sala} (${salaDeMaiorConsumo.total})`);
+}
+ 
