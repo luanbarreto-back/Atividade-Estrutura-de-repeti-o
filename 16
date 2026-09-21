@@ -1,0 +1,23 @@
+const leiturasSensor = [22, -5, 24, 999, 25];
+ 
+const leiturasValidas: number[] = [];
+ 
+for (const leitura of leiturasSensor) {
+  if (leitura === 999) {
+    break;
+  }
+  if (leitura < 0) {
+    continue;
+  }
+  leiturasValidas.push(leitura);
+}
+ 
+let soma = 0;
+for (const valor of leiturasValidas) {
+  soma += valor;
+}
+const media = leiturasValidas.length > 0 ? soma / leiturasValidas.length : 0;
+ 
+console.log(`Leituras válidas: [${leiturasValidas.join(", ")}]`);
+console.log(`Média das leituras válidas: ${media.toFixed(2)}`);
+ 
