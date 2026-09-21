@@ -1,0 +1,35 @@
+function fatorial(n: number): number {
+  if (!Number.isInteger(n) || n < 0 || n > 15) {
+    throw new Error(`Entrada inválida para fatorial: ${n}`);
+  }
+ 
+  let resultado = 1;
+  for (let i = 2; i <= n; i++) {
+    resultado *= i;
+  }
+  return resultado;
+}
+ 
+function testarFatorial(n: number): void {
+  try {
+    console.log(`${n}! = ${fatorial(n)}`);
+  } catch (erro) {
+    console.log((erro as Error).message);
+  }
+}
+ 
+console.log("--- Caso base 0! ---");
+testarFatorial(0);
+ 
+console.log("--- Valor típico ---");
+testarFatorial(5);
+ 
+console.log("--- Valor negativo (inválido) ---");
+testarFatorial(-3);
+ 
+console.log("--- Valor fracionário (inválido) ---");
+testarFatorial(4.5);
+ 
+console.log("--- Acima do limite (inválido) ---");
+testarFatorial(16);
+ 
