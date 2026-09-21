@@ -1,0 +1,47 @@
+type Regiao = "N" | "NE" | "CO" | "SE" | "S";
+ 
+function calcularFrete(regiao: Regiao, totalPedido: number): number {
+  let valorBase: number;
+ 
+  switch (regiao) {
+    case "N":
+      valorBase = 45;
+      break;
+    case "NE":
+      valorBase = 30;
+      break;
+    case "CO":
+      valorBase = 35;
+      break;
+    case "SE":
+      valorBase = 20;
+      break;
+    case "S":
+      valorBase = 25;
+      break;
+  }
+ 
+  const freteGratis = totalPedido > 500 && (regiao === "NE" || regiao === "SE");
+  return freteGratis ? 0 : valorBase;
+}
+ 
+interface Pedido {
+  regiao: Regiao;
+  totalPedido: number;
+}
+ 
+const pedidos: Pedido[] = [
+  { regiao: "NE", totalPedido: 600 }
+  { regiao: "SE", totalPedido: 501 }
+  { regiao: "SE", totalPedido: 500 }
+  { regiao: "N", totalPedido: 800 }
+  { regiao: "S", totalPedido: 700 }
+  { regiao: "CO", totalPedido: 100 }
+];
+ 
+for (const pedido of pedidos) {
+  const frete = calcularFrete(pedido.regiao, pedido.totalPedido);
+  console.log(
+    `Região ${pedido.regiao}, total R$ ${pedido.totalPedido} -> frete R$ ${frete}`
+  );
+}
