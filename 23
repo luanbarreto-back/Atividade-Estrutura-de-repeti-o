@@ -1,0 +1,27 @@
+const notasPorTurma: number[][] = [
+  [7, 8, 6, 9],
+  [5, 6, 7, 5], 
+  [9, 10, 8, 9], 
+ 
+const nomesTurmas = ["Turma A", "Turma B", "Turma C"];
+ 
+let maiorNotaGeral = -Infinity;
+ 
+for (let turma = 0; turma < notasPorTurma.length; turma++) {
+  let somaTurma = 0;
+ 
+  for (let indiceNota = 0; indiceNota < notasPorTurma[turma].length; indiceNota++) {
+    const nota = notasPorTurma[turma][indiceNota];
+    somaTurma += nota;
+ 
+    if (nota > maiorNotaGeral) {
+      maiorNotaGeral = nota;
+    }
+  }
+ 
+  const mediaTurma = somaTurma / notasPorTurma[turma].length;
+  console.log(`${nomesTurmas[turma]}: média ${mediaTurma.toFixed(2)}`);
+}
+ 
+console.log(`Maior nota geral: ${maiorNotaGeral}`);
+ 
