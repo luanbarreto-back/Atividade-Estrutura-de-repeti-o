@@ -1,0 +1,22 @@
+function ehPrimo(numero: number): boolean {
+  if (numero <= 1) {
+    return false;
+  }
+ 
+  const limite = Math.sqrt(numero);
+ 
+  for (let divisor = 2; divisor <= limite; divisor++) {
+    if (numero % divisor === 0) {
+      return false;
+    }
+  }
+ 
+  return true;
+}
+ 
+const numerosParaTeste = [2, 3, 4, 17, 18, 29, 97, 100, 1];
+ 
+for (const numero of numerosParaTeste) {
+  console.log(`${numero} -> ${ehPrimo(numero) ? "primo" : "composto"}`);
+}
+ 
