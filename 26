@@ -1,0 +1,42 @@
+const cedulasDisponiveis = [100, 50, 20, 10, 5, 2];
+ 
+type ResultadoSaque =
+  | { possivel: false; motivo: string }
+  | { possivel: true; decomposicao: { cedula: number; quantidade: number }[] };
+ 
+function sacarValor(valor: number): ResultadoSaque {
+  if (!Number.isInteger(valor) || valor <= 0) {
+    return { possivel: false, motivo: "Valor deve ser um inteiro positivo (sem centavos)" };
+  }
+ 
+  let restante = valor;
+  const decomposicao: { cedula: number; quantidade: number }[] = [];
+ 
+  for (const cedula of cedulasDisponiveis) {
+    const quantidade = Math.floor(restante / cedula);
+    if (quantidade > 0) {
+      decomposicao.push({ cedula, quantidade });
+      restante -= quantidade * cedula;
+    }
+  }
+ 
+  if (restante !== 0) {
+    return { possivel: false, motivo: "Valor não pode ser decomposto integralmente com as cédulas disponíveis" };
+  }
+ 
+  return { possivel: true, decomposicao };
+}
+ 
+function testarSaque(valor: number): void {
+  const resultado = sacarValor(valor);
+  if (resultado.possivel) {
+    const texto = resultado.decomposicao.map((d) => `${d.quantidade}x R$${d.cedula}`).join(", ");
+    console.log(`R$ ${valor} -> ${texto}`);
+  } else {
+    console.log(`R$ ${valor} -> recusado (${resultado.motivo})`);
+  }
+}
+ 
+testarSaque(370);
+testarSaque(233);
+testarSaque(3);
