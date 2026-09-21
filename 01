@@ -1,0 +1,26 @@
+type Faixa = "até 100 kWh" | "101 a 220 kWh" | "acima de 220 kWh";
+ 
+function classificarConsumo(consumo: number): Faixa {
+  if (consumo < 0) {
+    throw new Error("Consumo não pode ser negativo");
+  }
+  if (consumo <= 100) {
+    return "até 100 kWh";
+  } else if (consumo <= 220) {
+    return "101 a 220 kWh";
+  } else {
+    return "acima de 220 kWh";
+  }
+}
+ 
+const testes = [0, 100, 101, 220, 221];
+ 
+for (const consumo of testes) {
+  console.log(`Consumo ${consumo} kWh -> ${classificarConsumo(consumo)}`);
+}
+ 
+try {
+  classificarConsumo(-10);
+} catch (erro) {
+  console.log(`Erro esperado: ${(erro as Error).message}`);
+}
