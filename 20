@@ -1,0 +1,31 @@
+function gerarFibonacci(n: number): number[] | null {
+  if (!Number.isInteger(n) || n < 2 || n > 30) {
+    return null;
+  }
+ 
+  const sequencia: number[] = [0, 1];
+  let anterior = 0;
+  let atual = 1;
+ 
+  for (let i = 2; i < n; i++) {
+    const proximo = anterior + atual;
+    sequencia.push(proximo);
+    anterior = atual;
+    atual = proximo;
+  }
+ 
+  return sequencia;
+}
+ 
+function testar(n: number): void {
+  const resultado = gerarFibonacci(n);
+  if (resultado === null) {
+    console.log(`n=${n} -> inválido`);
+  } else {
+    console.log(`n=${n} -> [${resultado.join(", ")}]`);
+  }
+}
+ 
+testar(2);
+testar(8);
+testar(31);
