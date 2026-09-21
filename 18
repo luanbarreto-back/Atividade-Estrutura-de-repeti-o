@@ -1,0 +1,36 @@
+interface Produto {
+  nome: string;
+  quantidade: number;
+}
+ 
+const estoque: Produto[] = [
+  { nome: "Caneta", quantidade: 0 },
+  { nome: "Caderno", quantidade: 3 },
+  { nome: "Borracha", quantidade: 40 },
+  { nome: "Lápis", quantidade: 4 },
+  { nome: "Régua", quantidade: 15 },
+];
+ 
+let totalZerados = 0;
+let totalBaixoEstoque = 0;
+let totalRegulares = 0;
+ 
+for (const produto of estoque) {
+  if (produto.quantidade === 0) {
+    console.log(`Zerado: ${produto.nome}`);
+    totalZerados++;
+  } else if (produto.quantidade < 5) {
+    console.log(`Estoque baixo: ${produto.nome} (${produto.quantidade} unidades)`);
+    totalBaixoEstoque++;
+  } else {
+    console.log(`Regular: ${produto.nome} (${produto.quantidade} unidades)`);
+    totalRegulares++;
+  }
+}
+ 
+console.log("--- Resumo ---");
+console.log(`Zerados: ${totalZerados}`);
+console.log(`Estoque baixo: ${totalBaixoEstoque}`);
+console.log(`Regulares: ${totalRegulares}`);
+ 
+console.log("Estoque original preservado:", estoque);
