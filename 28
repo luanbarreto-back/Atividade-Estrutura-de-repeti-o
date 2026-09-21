@@ -1,0 +1,23 @@
+type ResultadoBusca = { encontrado: false } | { encontrado: true; valor: number; indiceInicial: number };
+ 
+function buscarTresConsecutivos(codigos: number[]): ResultadoBusca {
+  for (let i = 0; i <= codigos.length - 3; i++) {
+    if (codigos[i] === codigos[i + 1] && codigos[i + 1] === codigos[i + 2]) {
+      return { encontrado: true, valor: codigos[i], indiceInicial: i };
+    }
+  }
+  return { encontrado: false };
+}
+ 
+function testar(codigos: number[]): void {
+  const resultado = buscarTresConsecutivos(codigos);
+  if (resultado.encontrado) {
+    console.log(`[${codigos.join(", ")}] -> padrão encontrado: valor ${resultado.valor}, índice inicial ${resultado.indiceInicial}`);
+  } else {
+    console.log(`[${codigos.join(", ")}] -> padrão ausente`);
+  }
+}
+ 
+testar([1, 2, 3, 3, 3, 4]);
+testar([5, 5, 6, 5, 5, 5, 7]);
+testar([1, 2, 3, 4, 5, 6]);
