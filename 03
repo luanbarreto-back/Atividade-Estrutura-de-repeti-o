@@ -1,0 +1,19 @@
+type Status = "inválido" | "normal" | "atenção" | "crítico";
+ 
+function classificarTemperatura(temperatura: number): Status {
+  if (temperatura < -20 || temperatura > 100) {
+    return "inválido";
+  } else if (temperatura <= 29) {
+    return "normal";
+  } else if (temperatura <= 39) {
+    return "atenção";
+  } else {
+    return "crítico";
+  }
+}
+ 
+const leituras = [-25, -20, 15, 29, 30, 39, 40, 75, 100, 105];
+ 
+for (const leitura of leituras) {
+  console.log(`${leitura}°C -> ${classificarTemperatura(leitura)}`);
+}
