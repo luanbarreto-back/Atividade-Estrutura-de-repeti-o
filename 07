@@ -1,0 +1,10 @@
+function eBissexto(ano: number): boolean {
+  return ano % 4 === 0 && (ano % 100 !== 0 || ano % 400 === 0);
+}
+ 
+const anos = [1900, 2000, 2024, 2100];
+ 
+for (const ano of anos) {
+  console.log(`${ano} -> ${eBissexto(ano) ? "bissexto" : "não bissexto"}`);
+}
+ 
